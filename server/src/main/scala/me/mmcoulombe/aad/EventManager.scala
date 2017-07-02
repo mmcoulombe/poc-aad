@@ -45,7 +45,7 @@ class EventManager(implicit system: ActorSystem) {
     eventActor ! SendEvent(event)
   }
 
-  private val in = Flow[String]
+  private val in = Flow[String] // heartbeat otherwise the socket will be close after x seconds in idle
       .map(ReceivedEvent)
       .to(Sink.actorRef[ActorEventControl](eventActor, Disconnected))
 

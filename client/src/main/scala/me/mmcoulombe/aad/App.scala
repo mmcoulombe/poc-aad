@@ -26,21 +26,24 @@ object App extends JSApp with JsonSupport {
 
   def main(): Unit = {
     val socket = new WebSocket("ws://localhost:8080/api/v1/subscription")
+    val hm = new HeartbeatManager(socket)
 
     socket.onopen = (_) => {
-      println("Socket Open")
+      SimpleLogger.info("Socket Open")
     }
 
     socket.onclose = (_) => {
-      println("Socket closed")
+      SimpleLogger.info("Socket closed")
+      hm.stop()
     }
 
     socket.onerror = (e) => {
-      println(s"Socket Error: $e")
+      SimpleLogger.info(s"Socket Error: $e")
+      hm.stop()
     }
 
     socket.onmessage = (e) => {
-      println(s"Message from socket ${e.data}")
+      SimpleLogger.trace(s"Message from socket ${e.data}")
       // Deserialize json string to Operation
       val jsOp = e.data.toString
       // Parse Operation

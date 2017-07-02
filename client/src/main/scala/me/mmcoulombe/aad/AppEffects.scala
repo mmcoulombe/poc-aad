@@ -4,6 +4,7 @@ import diode.{Effect, NoAction}
 import me.mmcoulombe.add.json.JsonSupport
 import me.mmcoulombe.add.models.RSSFeed
 import org.scalajs.dom.ext.{Ajax, AjaxException}
+import play.api.libs.json.Json
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
@@ -28,7 +29,7 @@ object AppEffects extends JsonSupport {
         .map(xhr => Right(xhr.responseText))
         .recover{ case e: AjaxException => Left(new Error(e.xhr.responseText))}
         .map(
-            _.map(_.fromJson[List[RSSFeed]])
+            _.map(str => Json.parse(str).as[List[RSSFeed]])
             .fold(_ => NoAction, feeds => SaveFeeds(feeds))
         )
     )

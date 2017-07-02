@@ -4,7 +4,6 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff:
-.idea/**
 
 # Mongo Explorer plugin:
 .idea/mongoSettings.xml
@@ -48,13 +47,10 @@ gradle-app.setting
 
 #### java ####
 
-*.class
-
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.ear
 
@@ -63,12 +59,10 @@ hs_err_pid*
 
 #### scala ####
 
-*.class
 *.log
 
 # sbt specific
 .cache
-.history
 .lib/
 dist/*
 target/
@@ -88,3 +82,4 @@ project/project/
 server/src/test/
 shared/.js/
 shared/.jvm/
+.idea/
